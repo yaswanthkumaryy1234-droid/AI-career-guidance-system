@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block title %}Career Result{% endblock %}
+
+{% block content %}
+<style>
+.result-card{
+  max-width:700px;
+  margin:auto;
+  background:#fff;
+  padding:30px;
+  border-radius:8px;
+  box-shadow:0 2px 8px rgba(0,0,0,0.08);
+}
+.score-list li{
+  margin-bottom:6px;
+}
+</style>
+
+<div class="result-card">
+  <h2>🎯 Career Recommendation</h2>
+
+  <p><strong>Recommended Career:</strong></p>
+  <h3 style="color:#2563eb;">{{ result.career }}</h3>
+
+  <hr>
+
+  <h4>📊 Section-wise Scores</h4>
+  <ul class="score-list">
+    {% for k,v in result.scores.items %}
+      <li><strong>{{ k }}</strong>: {{ v }}</li>
+    {% endfor %}
+  </ul>
+
+  <br>
+  <a href="{% url 'dashboard' %}">⬅ Back to Dashboard</a> |
+  <a href="{% url 'career_history' %}">📊 View History</a>
+</div>
+{% endblock %}

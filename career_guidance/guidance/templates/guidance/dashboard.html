@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+
+<style>
+  .dashboard-card {
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    max-width: 600px;
+    margin: auto;
+    text-align: center;
+  }
+
+  .dashboard-card h2 {
+    margin-bottom: 10px;
+  }
+
+  .welcome-text {
+    font-size: 16px;
+    color: #374151;
+    margin-bottom: 25px;
+  }
+
+  .action-btn {
+    display: inline-block;
+    margin: 10px;
+    padding: 12px 22px;
+    background: #2563eb;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: bold;
+  }
+
+  .action-btn:hover {
+    background: #1e40af;
+  }
+
+  .logout-btn {
+    background: #dc2626;
+  }
+
+  .logout-btn:hover {
+    background: #991b1b;
+  }
+</style>
+
+<div class="dashboard-card">
+
+  <h2>📊 Dashboard</h2>
+<a href="{% url 'career_history' %}" class="action-btn">
+📊 View Career History
+</a>
+  <p class="welcome-text">
+    Welcome, <strong>{{ request.user.first_name|default:request.user.username }}</strong> 👋
+  </p>
+
+  <a href="{% url 'career_test' %}" class="action-btn">
+    🧠 Start Career Aptitude Test
+  </a>
+
+  <br>
+
+  <a href="{% url 'logout' %}" class="action-btn logout-btn">
+    🚪 Logout
+  </a>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+{% block title %}Career Aptitude Test{% endblock %}
+
+{% block content %}
+
+<style>
+  .test-card {
+    background: #fff;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  }
+
+  .instruction {
+    color: #555;
+    font-size: 14px;
+    margin-bottom: 20px;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 30px;
+  }
+
+  th, td {
+    padding: 10px;
+    text-align: center;
+    border-bottom: 1px solid #e5e7eb;
+    font-size: 14px;
+  }
+
+  th {
+    background: #f3f4f6;
+    font-weight: bold;
+  }
+
+  td.question {
+    text-align: left;
+    width: 40%;
+    font-weight: 500;
+  }
+
+  .section-title {
+    margin: 25px 0 10px;
+    font-size: 16px;
+    font-weight: bold;
+  }
+
+  .submit-btn {
+    background: #2563eb;
+    color: white;
+    padding: 10px 30px;
+    border: none;
+    border-radius: 6px;
+    font-size: 15px;
+    cursor: pointer;
+  }
+
+  .submit-btn:hover {
+    background: #1e40af;
+  }
+
+  .result-box {
+    margin-top: 30px;
+    padding: 20px;
+    background: #ecfdf5;
+    border-left: 5px solid #10b981;
+    border-radius: 6px;
+  }
+</style>
+
+<div class="test-card">
+
+<h2>Career Aptitude Test</h2>
+<p class="instruction">
+  Please answer all questions honestly  
+  (1 = Strongly Disagree, 5 = Strongly Agree)
+</p>
+
+<form method="post">
+{% csrf_token %}
+
+{% for section, qs in sections.items %}
+  <div class="section-title">{{ section }}</div>
+
+  <table>
+    <tr>
+      <th class="question">Question</th>
+      <th>1</th>
+      <th>2</th>
+      <th>3</th>
+      <th>4</th>
+      <th>5</th>
+    </tr>
+
+    {% for q in qs %}
+    <tr>
+      <td class="question">{{ forloop.counter }}. {{ q }}</td>
+
+      {% for i in "12345" %}
+      <td>
+        <input type="radio"
+               name="{{ section }}_{{ forloop.parentloop.counter0 }}"
+               value="{{ i }}"
+               required>
+      </td>
+      {% endfor %}
+    </tr>
+    {% endfor %}
+  </table>
+{% endfor %}
+
+<button type="submit" class="submit-btn">Submit Test</button>
+</form>
+
+
+</div>
+{% endblock %}
